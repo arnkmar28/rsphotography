@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - RS Photography{% endblock %}
+
+{% block content %}
+<div class="container admin-container">
+    <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <a href="{{ url_for('logout') }}" class="btn-outline">Logout</a>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-box">
+        <h3>Upload New Image</h3>
+        <form action="{{ url_for('upload_image') }}" method="POST" enctype="multipart/form-data"
+            style="margin-top: 1rem; display: flex; gap: 1rem; align-items: flex-end;">
+            <div style="flex: 1;">
+                <label>Select Image</label>
+                <input type="file" name="file" accept="image/*" required>
+            </div>
+            <div style="flex: 1;">
+                <label>Title (Optional)</label>
+                <input type="text" name="title" placeholder="Image Title">
+            </div>
+            <button type="submit" class="btn">Upload</button>
+        </form>
+    </div>
+
+    <!-- Gallery Management -->
+    <h3>Manage Gallery ({{ images|length }})</h3>
+    <div class="admin-gallery-grid" style="margin-top: 1rem; padding-bottom: 4rem;">
+        {% for image in images %}
+        <div class="admin-img-card">
+            <img src="{{ image.url }}">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; font-size: 0.8rem;">
+                <span>{{ image.title }}</span>
+            </div>
+            <form action="{{ url_for('delete_image', id=image.id) }}" method="POST"
+                onsubmit="return confirm('Are you sure?');">
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+        {% else %}
+        <p>No images uploaded yet.</p>
+        {% endfor %}
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="{{ url_for('index') }}" class="btn">&larr; View Live Site</a>
+    </div>
+</div>
+{% endblock %}

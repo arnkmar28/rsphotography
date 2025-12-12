@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Login - RS Photography{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="login-box">
+        <h2 style="margin-bottom: 2rem; font-family: var(--font-serif);">Admin Login</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn" style="width: 100%;">Login</button>
+        </form>
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('index') }}" class="btn-outline" style="padding: 8px 16px; font-size: 0.8rem;">&larr;
+                Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
